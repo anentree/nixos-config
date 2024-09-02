@@ -18,6 +18,8 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+    # work
+        teams-for-linux
   ];
 
   time.timeZone = "Europe/Paris";

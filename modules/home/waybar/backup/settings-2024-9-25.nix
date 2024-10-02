@@ -115,14 +115,14 @@ clock = {
         icon-size= 20;
         spacing= 8;
     };
-    wireplumber = {
+    pulseaudio= {
         format= "{icon} {volume}%";
         format-muted= "<span foreground='${blue}'> </span> {volume}%";
         format-icons= {
             default= ["<span foreground='${blue}'> </span>"];
         };
         scroll-step= 5;
-        on-click= "pavucontrol";
+        on-click= "pamixer -t";
     };
     battery = {
         format = "<span foreground='${yellow}'>{icon}</span> {capacity}%";
@@ -132,7 +132,7 @@ clock = {
         format-warning = "<span foreground='${yellow}'> </span>{capacity}%";
         interval = 5;
         states = {
-            warning = 10;
+            warning = 20;
         };
         format-time = "{H}h{M}m";
         tooltip = true;

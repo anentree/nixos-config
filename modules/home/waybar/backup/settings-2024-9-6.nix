@@ -44,26 +44,15 @@ in
         "battery"
         "custom/notification"
     ];
-clock = {
-  format = "{:%b %d - %I:%M}";
-  tooltip = true;
-  tooltip-format = "<tt><small>{calendar}</small></tt>";
-  calendar = {
-    mode = "month";
-    format = {
-      months = "<span color='${blue}'><b>{}</b></span>";
-      days = "<span color='${text_color}'>{}</span>";
-      weeks = "<span color='${orange}'><b>W{}</b></span>";
-      weekdays = "<span color='${yellow}'><b>{}</b></span>";
-      today = "<span color='${green}'><b><u>{}</u></b></span>";
+    clock= {
+        calendar = {
+          format = { today = "<span color='#98971A'><b>{}</b></span>"; };
+        };
+        format = "  {:%I:%M}"; # Changed from {:%H:%M} to {:%I:%M %p}
+        tooltip= "true";
+        tooltip-format= "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+        format-alt= "  {:%m/%d}";
     };
-  };
-  actions = {
-    on-click = "shift_up";
-    on-click-right = "shift_down";
-  };
-};
-
     "hyprland/workspaces"= {
         active-only= false;
         disable-scroll= true;
@@ -115,14 +104,14 @@ clock = {
         icon-size= 20;
         spacing= 8;
     };
-    wireplumber = {
+    pulseaudio= {
         format= "{icon} {volume}%";
         format-muted= "<span foreground='${blue}'> </span> {volume}%";
         format-icons= {
             default= ["<span foreground='${blue}'> </span>"];
         };
         scroll-step= 5;
-        on-click= "pavucontrol";
+        on-click= "pamixer -t";
     };
     battery = {
         format = "<span foreground='${yellow}'>{icon}</span> {capacity}%";
@@ -132,7 +121,7 @@ clock = {
         format-warning = "<span foreground='${yellow}'> </span>{capacity}%";
         interval = 5;
         states = {
-            warning = 10;
+            warning = 20;
         };
         format-time = "{H}h{M}m";
         tooltip = true;

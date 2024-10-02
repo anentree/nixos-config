@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 with lib;
 let
-  inherit (lib) lists attrsets;
   defaultApps = {
     browser = [ "floorp.desktop" ];
     text = [ "org.gnome.TextEditor.desktop" ];
@@ -80,11 +79,11 @@ let
     ];
   };
 
-  associations =
-    with lists;
-    listToAttrs (
-      flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type defaultApps."${key}")) mimeMap)
-    );
+#  associations =
+#    with lists;
+#    listToAttrs (
+#      flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type defaultApps."${key}")) mimeMap)
+#    );
 in
 {
   xdg.configFile."mimeapps.list".force = true;

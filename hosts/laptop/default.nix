@@ -19,7 +19,7 @@
  
     upower = {
       enable = true;
-      percentageLow = 20;
+      percentageLow = 10;
       percentageCritical = 5;
       percentageAction = 3;
       criticalPowerAction = "PowerOff";

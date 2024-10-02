@@ -4,33 +4,30 @@
     settings = {
       
       # autostart
-      exec-once = [        
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
-        "hash dbus-update-activation-environment 2>/dev/null &"
-        "hyprctl setcursor Bibata-Modern-Ice 24 &"
-        "hyprlock"
-        "kitty"
-        "nm-applet &"
-        "poweralertd &"
-        "spotify"
-        "swaybg -m fill -i $(find ~/Pictures/wallpapers/ -maxdepth 1 -type f) &"
-        "swaync &"
+      exec-once = [
         "systemctl --user import-environment &"
-        "teams-for-linux"
-        "thunderbird"
-        "waybar &"
+        "hash dbus-update-activation-environment 2>/dev/null &"
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
+        "nm-applet &"
         "wl-clip-persist --clipboard both"
+        "swaybg -m fill -i $(find ~/Pictures/wallpapers/ -maxdepth 1 -type f) &"
+        "hyprctl setcursor Bibata-Modern-Ice 24 &"
+        "poweralertd &"
+        "waybar &"
+        "swaync &"
         "wl-paste --watch cliphist store &"
+        "hyprlock"
 
         ## App auto start
         "[workspace 1 silent] floorp"
+        "[workspace 2 silent] kitty"
       ];
 
       input = {
-        kb_layout = "us";
-        # kb_options ="caps:super"; 
+        kb_layout = "us,fr";
+        kb_options ="grp:alt_caps_toggle"; 
         numlock_by_default = true;
-        follow_mouse = 1; # changed from 0 to 1
+        follow_mouse = 0;
         float_switch_override_focus = 0;
         mouse_refocus = 0;
         sensitivity = 0;
@@ -108,16 +105,6 @@
         "col.shadow" = "rgba(00000055)";
       };
 
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_fingers = 3;
-        workspace_swipe_distance = 50;
-        workspace_swipe_invert = true;
-        workspace_swipe_min_speed_to_force = 20;
-        workspace_swipe_cancel_ratio = 0.5;
-        workspace_swipe_create_new = true;
-      };
-      
       animations = {
         enabled = true;
 
@@ -146,38 +133,40 @@
         ];
       };
 
-      bind = [        
-        "$mainMod, D, exec, rofi -show drun"
-        "$mainMod, F, fullscreen, 1"
-        "$mainMod, J, togglesplit,"
-        "$mainMod, M, exec, qalculate-gtk"
-        "$mainMod, N, exec, swaync-client -t -sw"
-        "$mainMod, O, exec, thunderbird"
-        "$mainMod SHIFT, O, exec, toggle_oppacity"
-        "$mainMod, P, pseudo,"
-        "$mainMod, Q, killactive,"
-        "$mainMod, S, togglespecialworkspace, spotify"
-        "$mainMod, T, togglespecialworkspace, teams"
-        "$mainMod, E, exec, nautilus"
-        "$mainMod, Return, togglespecialworkspace, kitty"
-        "$mainMod SHIFT, Return, exec, kitty --start-as=fullscreen -o 'font_size=16'"
-        "$mainMod, Space, exec, hyprctl dispatch togglefloating active && hyprctl dispatch resizeactive exact 960 540 && hyprctl dispatch centerwindow"
-        "ALT, Escape, exec, swaylock"
-        "$mainMod, Escape, exec, hyprlock"
-        "$mainMod SHIFT, Escape, exec, power-menu"
-        "$mainMod SHIFT, V, exec, vm-start"
-        "$mainMod SHIFT, W, exec, toggle_waybar"
+      bind = [
+        # show keybinds list
         "$mainMod, F1, exec, show-keybinds"
-        
-        # Gesture bindings
-        ", swipe:3:left, workspace, e+1"
-        ", swipe:3:right, workspace, e-1"
-        ", swipe:4:down, exec, rofi -show drun"
-        ", swipe:4:up, exec, rofi -show window"
+
+        # keybindings
+        "$mainMod, Return, exec, kitty"
+        "ALT, Return, exec, kitty --title float_kitty"
+        "$mainMod SHIFT, Return, exec, kitty --start-as=fullscreen -o 'font_size=16'"
+        "$mainMod, B, exec, hyprctl dispatch exec '[workspace 1 silent] floorp'"
+        "$mainMod, Q, killactive,"
+        "$mainMod, F, fullscreen, 0"
+        "$mainMod SHIFT, F, fullscreen, 1"
+        "$mainMod, Space, togglefloating,"
+        "$mainMod, Space, centerwindow,"
+        "$mainMod, Space, resizeactive, exact 950 600"
+        "$mainMod, D, exec, rofi -show drun"
+        "$mainMod SHIFT, D, exec, hyprctl dispatch exec '[workspace 4 silent] discord --enable-features=UseOzonePlatform --ozone-platform=wayland'"
+        "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 5 silent] SoundWireServer'"
+        "$mainMod, Escape, exec, swaylock"
+        "ALT, Escape, exec, hyprlock"
+        "$mainMod SHIFT, Escape, exec, power-menu"
+        "$mainMod, P, pseudo,"
+        "$mainMod, J, togglesplit,"
+        "$mainMod, T, exec, toggle_oppacity"
+        "$mainMod, E, exec, nautilus"
+        "$mainMod SHIFT, B, exec, toggle_waybar"
+        "$mainMod, C ,exec, hyprpicker -a"
+        "$mainMod, W,exec, wallpaper-picker"
+        "$mainMod, N, exec, swaync-client -t -sw"
+        "$mainMod SHIFT, W, exec, vm-start"
 
         # screenshot
-        ", Print, exec, grimblast --notify --cursor --freeze save area ~/Pictures/screenshots/$(date +'%Y-%m-%d-At-%Ih%Mm%Ss').png"
-        # ",Print, exec, grimblast --notify --cursor --freeze copy area"
+        "$mainMod, Print, exec, grimblast --notify --cursor --freeze save area ~/Pictures/$(date +'%Y-%m-%d-At-%Ih%Mm%Ss').png"
+        ",Print, exec, grimblast --notify --cursor --freeze copy area"
 
         # switch focus
         "$mainMod, left, movefocus, l"
@@ -196,20 +185,19 @@
         "$mainMod, 8, workspace, 8"
         "$mainMod, 9, workspace, 9"
         "$mainMod, 0, workspace, 10"
-        "$mainMod, c, workspace, empty"
 
         # same as above, but switch to the workspace
-        "$mainMod SHIFT, 1, movetoworkspace, 1" # movetoworkspace
-        "$mainMod SHIFT, 2, movetoworkspace, 2"
-        "$mainMod SHIFT, 3, movetoworkspace, 3"
-        "$mainMod SHIFT, 4, movetoworkspace, 4"
-        "$mainMod SHIFT, 5, movetoworkspace, 5"
-        "$mainMod SHIFT, 6, movetoworkspace, 6"
-        "$mainMod SHIFT, 7, movetoworkspace, 7"
-        "$mainMod SHIFT, 8, movetoworkspace, 8"
-        "$mainMod SHIFT, 9, movetoworkspace, 9"
-        "$mainMod SHIFT, 0, movetoworkspace, 10"
-        "$mainMod SHIFT, c, movetoworkspace, empty"
+        "$mainMod SHIFT, 1, movetoworkspacesilent, 1" # movetoworkspacesilent
+        "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
+        "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
+        "$mainMod SHIFT, 4, movetoworkspacesilent, 4"
+        "$mainMod SHIFT, 5, movetoworkspacesilent, 5"
+        "$mainMod SHIFT, 6, movetoworkspacesilent, 6"
+        "$mainMod SHIFT, 7, movetoworkspacesilent, 7"
+        "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
+        "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
+        "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
+        "$mainMod CTRL, c, movetoworkspace, empty"
 
         # window control
         "$mainMod SHIFT, left, movewindow, l"
@@ -229,14 +217,12 @@
         ",XF86AudioRaiseVolume,exec, pamixer -i 2"
         ",XF86AudioLowerVolume,exec, pamixer -d 2"
         ",XF86AudioMute,exec, pamixer -t"
-        ",XF86AudioMicMute,exec, pamixer --default-source -t"
         ",XF86AudioPlay,exec, playerctl play-pause"
-        "$mainMod, slash, exec, playerctl play-pause"
         ",XF86AudioNext,exec, playerctl next"
-        "$mainMod, period, exec, playerctl next"
         ",XF86AudioPrev,exec, playerctl previous"
-        "$mainMod, comma, exec, playerctl previous"
         ",XF86AudioStop, exec, playerctl stop"
+        "$mainMod, mouse_down, workspace, e-1"
+        "$mainMod, mouse_up, workspace, e+1"
 
         # laptop brigthness
         ",XF86MonBrightnessUp, exec, brightnessctl set 5%+"
@@ -247,7 +233,7 @@
         # clipboard manager
         "$mainMod, V, exec, cliphist list | rofi -dmenu -theme-str 'window {width: 50%;}' | cliphist decode | wl-copy"
       ];
-      
+
       # mouse binding
       bindm = [
         "$mainMod, mouse:272, movewindow"
@@ -255,48 +241,31 @@
       ];
 
       # windowrule
-      windowrule = [        
-        "tile,Aseprite"
-        "float,audacious"
-        "float,Firefox — Sharing Indicator"
-        "move 0 0,Firefox — Sharing Indicator"
-        "float,imv"
-        "center,imv"
-        "size 950 600,imv"
-        "float,^(kitty)$"
-        "center,^(kitty)$"
-        "size 950 600,^(kitty)$"
-        "workspace special:kitty silent,^(kitty)$"
-        "idleinhibit focus,mpv"
-        "float,mpv"
-        "center,mpv"
-        "size 950 600,mpv"
-        "tile, neovide"
-        "float,qalculate-gtk"
-        "center,qalculate-gtk"
-        "size 440 250,qalculate-gtk"
+      windowrule = [
         "float,qView"
         "center,qView"
-        "size 950 600,qView"
+        "size 1200 725,qView"
+        "float,imv"
+        "center,imv"
+        "size 1200 725,imv"
+        "float,mpv"
+        "center,mpv"
+        "tile,Aseprite"
+        "size 1200 725,mpv"
+        "float,title:^(float_kitty)$"
+        "center,title:^(float_kitty)$"
+        "size 950 600,title:^(float_kitty)$"
+        "float,audacious"
         "pin,rofi"
-        "float,^(Spotify)$"
-        "center,^(Spotify)$"
-        "size 950 600,^(Spotify)$"
-        "workspace special:spotify silent,^(Spotify)$"
-        "float,^(teams-for-linux)$"
-        "center,^(teams-for-linux)$"
-        "size 950 600,^(teams-for-linux)$"
-        "workspace special:teams silent,^(teams-for-linux)$"
-        "float,thunderbird"
-        "center,thunderbird"
-        "size 950 600,thunderbird"  
-        "workspace special:teams silent,thunderbird"
-        "float,title:^(Transmission)$"
+        "tile, neovide"
+        "idleinhibit focus,mpv"
         "float,udiskie"
+        "float,title:^(Transmission)$"
         "float,title:^(Volume Control)$"
-        "float,org.gnome.NautilusPreviewer"
-        "center,org.gnome.NautilusPreviewer"
-        "size 950 600,org.gnome.NautilusPreviewer"
+        "float,title:^(Firefox — Sharing Indicator)$"
+        "move 0 0,title:^(Firefox — Sharing Indicator)$"
+        "size 700 450,title:^(Volume Control)$"
+        "move 40 55%,title:^(Volume Control)$"
       ];
 
       # windowrulev2
@@ -311,11 +280,11 @@
         "opacity 1.0 override 1.0 override, class:(floorp)"
         "opacity 1.0 override 1.0 override, class:(evince)"
         "workspace 1, class:^(floorp)$"
-        # "workspace 4, class:^(discord)$"
-        # "workspace 4, class:^(Gimp-2.10)$"
-        # "workspace 4, class:^(Aseprite)$"
-        # "workspace 5, class:^(Audacious)$"
-        # "workspace 5, class:^(Spotify)$"
+        "workspace 4, class:^(discord)$"
+        "workspace 4, class:^(Gimp-2.10)$"
+        "workspace 4, class:^(Aseprite)$"
+        "workspace 5, class:^(Audacious)$"
+        "workspace 5, class:^(Spotify)$"
         "idleinhibit focus, class:^(mpv)$"
         "idleinhibit fullscreen, class:^(firefox)$"
         "float,class:^(zenity)$"
@@ -323,8 +292,6 @@
         "size 850 500,class:^(zenity)$"
         "size 850 500,title:^(File Upload)$"
         "float,class:^(pavucontrol)$"
-        "size 950 600, class:^(pavucontrol)$" 
-        "center, class:^(pavucontrol)$"
         "float,class:^(SoundWireServer)$"
         "float,class:^(.sameboy-wrapped)$"
         "float,class:^(file_progress)$"

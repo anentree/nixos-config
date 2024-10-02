@@ -39,14 +39,15 @@ notify() {
 
 screen() {
   notify "Starting Recording" "Your screen is being recorded"
-  timeout 600 wf-recorder -F format=rgb24 -x rgb24 -p qp=0 -p crf=0 -p preset=slow -c libx264rgb -f "$TMP_MP4_FILE"
+  timeout 600 wf-recorder -a -F format=rgb24 -x rgb24 -p qp=0 -p crf=0 -p preset=slow -c libx264rgb -f "$TMP_MP4_FILE"
+
 }
 
 area() {
   GEOMETRY=$(slurp)
   if [[ ! -z "$GEOMETRY" ]]; then
     notify "Starting Recording" "Your screen is being recorded"
-    timeout 600 wf-recorder -F format=rgb24 -x rgb24 -p qp=0 -p crf=0 -p preset=slow -c libx264rgb -g "$GEOMETRY" -f "$TMP_MP4_FILE"
+    timeout 600 wf-recorder -a -F format=rgb24 -x rgb24 -p qp=0 -p crf=0 -p preset=slow -c libx264rgb -f "$TMP_MP4_FILE"
   fi
 }
 

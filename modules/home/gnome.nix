@@ -3,8 +3,14 @@
   home.packages = (with pkgs; [
     evince                                        # pdf
     file-roller                                   # archive
+    gnome-disk-utility
     gnome-text-editor                             # gedit
     nautilus                                      # file manager
+    sushi
+    # scanner
+      gnome.simple-scan
+      sane-backends
+      gnome.gnome-control-center
   ]);
 
   dconf.settings = {

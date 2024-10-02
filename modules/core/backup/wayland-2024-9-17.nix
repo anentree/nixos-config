@@ -13,6 +13,7 @@
 
   environment.systemPackages = with pkgs; [
     # xwaylandvideobridge
+    inputs.pyprland.packages.${system}.default
   ];
 
 }

@@ -6,21 +6,14 @@
     useGlobalPkgs = true;
     extraSpecialArgs = { inherit inputs username host; };
     users.${username} = {
-      programs.home-manager.enable = true;
       imports = 
         if (host == "desktop") then 
           [ ./../home/default.desktop.nix ] 
         else [ ./../home ];
-      home = {
-        username = "${username}";
-        homeDirectory = "/home/${username}";
-        stateVersion = "24.05";
-        sessionVariables = { # added for floorp to be compatible with onedrive package
-          MOZ_ENABLE_WAYLAND = "1";
-          MOZ_USE_XINPUT2 = "1";
-          XDG_CURRENT_DESKTOP = "Hyprland";
-        };
-      };
+      home.username = "${username}";
+      home.homeDirectory = "/home/${username}";
+      home.stateVersion = "24.05";
+      programs.home-manager.enable = true;
     };
   };
 

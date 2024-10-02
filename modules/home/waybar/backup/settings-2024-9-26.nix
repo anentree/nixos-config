@@ -115,7 +115,7 @@ clock = {
         icon-size= 20;
         spacing= 8;
     };
-    wireplumber = {
+    pulseaudio = {
         format= "{icon} {volume}%";
         format-muted= "<span foreground='${blue}'> </span> {volume}%";
         format-icons= {

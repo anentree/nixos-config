@@ -3,7 +3,6 @@
   imports =
        [ (import ./bootloader.nix) ]
     ++ [ (import ./hardware.nix) ]
-    ++ [ (import ./xserver.nix) ]
     ++ [ (import ./network.nix) ]
     ++ [ (import ./nh.nix) ]
     ++ [ (import ./pipewire.nix) ]
@@ -13,5 +12,6 @@
     ++ [ (import ./system.nix) ]
     ++ [ (import ./user.nix) ]
     ++ [ (import ./wayland.nix) ]
-    ++ [ (import ./virtualization.nix) ];
+    ++ [ (import ./virtualization.nix) ]
+    ++ [ (import ./xserver.nix) ];
 }
